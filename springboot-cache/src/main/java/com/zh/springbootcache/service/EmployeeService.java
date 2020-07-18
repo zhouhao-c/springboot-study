@@ -3,17 +3,18 @@ package com.zh.springbootcache.service;
 import com.zh.springbootcache.bean.Employee;
 import com.zh.springbootcache.mapper.EmployeeMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 @Service
-public class EmployeeService implements EmployeeMapper {
-    @Autowired
-    private EmployeeMapper employeeMapper;
+public class EmployeeService{
 
+    @Autowired
+    EmployeeMapper employeeMapper;
     /**
      * @Cacheable
-     * 将方法的运行结果进行缓存，以后在要相同的数据，直接从缓存中获取，用调用方法
+     * 将方法的运行结果进行缓存，以后在要相同的数据，直接从缓存中获取。
      *
      * CacheManager管理多个Cache组件，对缓存真正的crud操作在Cache组件中，每个缓存组件有自己唯一的名字
      *
@@ -49,25 +50,23 @@ public class EmployeeService implements EmployeeMapper {
      * @param id
      * @return
      */
-    @Override
-    @Cacheable(cacheNames = {"emp"},keyGenerator = "myKeyGenerator",condition = "#a0>1")
+    @Cacheable(cacheNames = {"emp"})
     public Employee getEmpById(Integer id) {
         Employee emp = employeeMapper.getEmpById(id);
         return emp;
     }
 
-    @Override
-    public void updateEmp(Employee emp) {
-
+    /**
+     * @CachePut：即调用方法，又更新缓存数据，同步更新缓存
+     * 注意：方法运行以后给缓存中存放数据
+     * @param emp
+     */
+    @CachePut(value = "emp",key = "#emp.id")
+    public Employee updateEmp(Employee emp) {
+        System.out.println("更新："+emp);
+        employeeMapper.updateEmp(emp);
+        return emp;
     }
 
-    @Override
-    public void deleteEmpById(Integer id) {
 
-    }
-
-    @Override
-    public void insertEmp(Employee emp) {
-
-    }
 }
