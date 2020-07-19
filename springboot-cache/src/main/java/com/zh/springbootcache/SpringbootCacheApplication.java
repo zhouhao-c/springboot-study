@@ -19,6 +19,16 @@ import org.springframework.cache.annotation.EnableCaching;
  *          @Cachecble
  *          @CacheEvict
  *          @CachePut
+ * 三.整合Redis作为缓存
+ *      1.安装redis：使用docker
+ *      2.引入redis的starter
+ *      3.配置redis
+ *      4.测试缓存
+ *          原理:
+ *          1.引入redis的starter后,容器中保存的就是RedisCacheManager
+ *          2.RedisCacheManager帮助创建RedisCache作为缓存组件,RedisCache通过redis来操作缓存数据
+ *          3.默认保存数据 k-v 都是对象时利用jdk自带序列化保存数据
+ *          4.自定义CacheManager
  *
  */
 @MapperScan("com.zh.springbootcache.mapper")

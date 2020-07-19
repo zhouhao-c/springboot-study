@@ -54,6 +54,7 @@ public class EmployeeService{
      */
     @Cacheable(cacheNames = {"emp"})
     public Employee getEmpById(Integer id) {
+        System.out.println("查询id="+id+"的员工");
         Employee emp = employeeMapper.getEmpById(id);
         return emp;
     }
