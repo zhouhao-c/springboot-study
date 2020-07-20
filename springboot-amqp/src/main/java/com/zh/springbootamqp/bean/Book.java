@@ -28,4 +28,11 @@ public class Book {
         this.bookName = bookName;
     }
 
+    @Override
+    public String toString() {
+        return "Book{" +
+                "bookId=" + bookId +
+                ", bookName='" + bookName + '\'' +
+                '}';
+    }
 }

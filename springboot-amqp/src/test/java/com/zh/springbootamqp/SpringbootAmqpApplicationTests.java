@@ -55,6 +55,6 @@ class SpringbootAmqpApplicationTests {
      */
     @Test
     public void sendMsg(){
-        rabbitTemplate.convertAndSend("exchange.fanout","",new Book(2,"Java开发手册"));
+        rabbitTemplate.convertAndSend("exchange.fanout","",new Book(3,"红楼梦"));
     }
 }
