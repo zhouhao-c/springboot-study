@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div sec:authorize="!isAuthenticated()">
+    <h2>没有登录认证</h2>
+</div>
+<div sec:authorize="isAuthenticated()">
+    <h2>已登录</h2>
+    <h3><span sec:authentication="name"></span>
+        <span sec:authentication="principal.authorities"></span>
+    </h3>
+    <form th:action="@{/logout}" method="post">
+        <input type="submit" value="注销">
+    </form>
+</div>
+
+<div sec:authorize="hasAnyRole('VIP1')">
+    <ul>
+        <li><a th:href="@{/level1/1}">1111111111111</a></li>
+    </ul>
+</div>
+
+
+
+</body>
+</html>
